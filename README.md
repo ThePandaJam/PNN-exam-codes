@@ -1,5 +1,5 @@
 # PNN-exam-codes
-This is a repo for code which should help with the 7CCSMPNN exam
+This is a repo for code which should help with the Pattern Recognition and Neural Networks exam
 
 ## Topics
 1. Introduction
