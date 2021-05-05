@@ -1,7 +1,18 @@
 # PNN-exam-codes
-This is a repo for code which should help with the 7CCSMDM1 exam
+This is a repo for code which should help with the 7CCSMPNN exam
 
 ## Topics
+1. Introduction
+2. Discriminant Functions
+3. Neural Networks
+4. Multilayer Perceptrons and Backpropagation
+5. Deep Discriminative Neural Networks
+6. Deep Generative Neural Networks
+7. Feature Extraction
+8. Support Vector Machines
+9. Ensemble Methods
+10. Clustering
+
 
 ## Commit rules
 1. If you decide to contribute, please message the study group to confirm that nobody else is already working on the same code to prevent overlap and confusion
