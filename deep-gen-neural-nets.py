@@ -1,1 +1,0 @@
-# Deep Generative Neural Networks [week 6]
