@@ -41,4 +41,4 @@ if __name__ == '__main__':
     
     # Change these parameters depending on what the question asks for:
 
-    activationOfOutput(weights = [[1, 1, 0], [1, 1, 1]], iterations = 5, input = [1, 1, 0], alpha = 0.25, activations = [0, 0])
+    activationOfOutput(weights = [[1, 1, 0], [1, 1, 1]], iterations = 5, input = [1, 1, 0], alpha = 0.5, activations = [0, 0])
