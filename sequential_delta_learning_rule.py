@@ -62,7 +62,7 @@ while True:
             # creating an empty list of zeros to insert update weight:
             update = np.zeros(len(x_t))
             # creating array for learning rate:
-            learning_rate = np.full((3, 1), learning_rate)
+            learning_rate = np.full((len(x_t), 1), learning_rate)
 
             for j in range(len(x_t)):
                 update[j] = w[j] - learning_rate[j]*x_t[j]
@@ -74,7 +74,7 @@ while True:
             # creating an empty list of zeros to insert update weight:
             update = np.zeros(len(x_t))
             # creating array for learning rate:
-            learning_rate = np.full((3, 1), learning_rate)
+            learning_rate = np.full((len(x_t), 1), learning_rate)
 
             for j in range(len(x_t)):
                 update[j] = w[j] + learning_rate[j]*x_t[j]
