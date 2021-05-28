@@ -13,7 +13,7 @@ def fuzzy_k_means(data, K, b, iterations, weights):
             new_center = [None] * data.shape[1]
             for idy in range(data.shape[1]):
                 new_center[idy] = w[idy]**b * data[:, idy]
-            centers[idx] = (np.array(new_center).sum(axis=0)/(w**2).sum())
+            centers[idx] = (np.array(new_center).sum(axis=0)/(w**b).sum())
         # print("Centers", centers)
         new_weight_container = [None] * data.shape[1]
         for idx in range(data.shape[1]):
