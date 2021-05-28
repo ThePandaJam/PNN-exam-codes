@@ -29,7 +29,7 @@ print(
 # -----------------------------------------------------------------------------------
 
 
-def distance(feautre, centers, method='euclidian'):
+def distance(feature, centers, method='euclidian'):
     if method == 'euclidian':
         return [np.linalg.norm(feature-centers[center])  # euclidian norm
                 for center in centers]
