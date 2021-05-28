@@ -1,7 +1,7 @@
 import numpy as np
 
 # Initialisation - Parameters from question
-k = 2
+k = 2 # Number of clusters to form
 centers = {  # Initial clusters' centers
     0: [-1, 3],
     1: [5, 1],
