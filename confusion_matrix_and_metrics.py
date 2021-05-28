@@ -32,6 +32,10 @@ def basic_metrics(y_true, y_pred, class_names, normalize=False):
     plt.xlabel('Predicted label')
     
     print(classification_report(y_true, y_pred, target_names=class_names[::-1],digits=4))
+    print()
+    print("Overall", "\t", "Precision", "\t", "Recall","\t", "F1 Score")
+    print("\t\t","{:.4f}".format(precision_score(y_true,y_pred)),"\t", 
+          "{:.4f}".format(recall_score(y_true,y_pred)), "\t",  "{:.4f}".format(f1_score(y_true,y_pred)))
     print("Close figure to terminate.")
     plt.show()
 
