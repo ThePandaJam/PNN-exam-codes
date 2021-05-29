@@ -121,11 +121,7 @@ def apply_mask(X, H, padding=0, stride=1, dilation=1):
 
 if __name__ == '__main__':
     # Task4 The following array show the output produced by a mask in a
-    # convolutional
-    # layer of a CNN
-    # net =  [  1  0.5  0.2 ]
-    #        [ −1 −0.5 −0.2 ]
-    #        [0.1 −0.1  0   ]
+    # convolutional layer of a CNN
     #
     # Calculate the values produced by the application of the following
     # activation functions:
@@ -134,7 +130,9 @@ if __name__ == '__main__':
     # c. tanh,
     # d. Heaviside function where each neuron has a threshold of 0.1
     # (define H(0) as 0.5).
-    net = np.array([[1, 0.5, 0.2], [-1, -0.5, -0.2], [0.1, -0.1, 0]])
+    net = np.array([[1, 0.5, 0.2],
+                    [-1, -0.5, -0.2],
+                    [0.1, -0.1, 0]])
     print('input:')
     print(net)
 
@@ -153,49 +151,32 @@ if __name__ == '__main__':
     # Task5 The following arrays show the output produced by a convolutional
     # layer
     # to all 4 samples in a batch
-    # X1 = [ 1    0.5  2  ]
-    #      [-1   -0.5 -0.2]
-    #      [ 0.1 -0.1  0  ]
     #
-    # X2 = [1   -1    0.1]
-    #      [0.5 -0.5 -0.1]
-    #      [0.2 -0.2  0  ]
-    #
-    # X3 = [0.5 -0.5 -0.1]
-    #      [0   -0.4  0  ]
-    #      [0.5  0.5  0.2]
-    #
-    # X4 = [ 0.2  1   -0.2]
-    #      [-1   -0.4 -0.1]
-    #      [ 0.1  0    0.1]
     # Calculate the corresponding outputs produced after the application of
     # batch normalisation, assuming the following parameter values β = 0,
     # γ = 1, and ε = 0.1 which are the same for all neurons
     print('batch normalization')
-    X1 = np.array([[1, 0.5, 0.2], [-1, -0.5, -0.2], [0.1, -0.1, 0]])
-    X2 = np.array([[1, -1, 0.1], [0.5, -0.5, -0.1], [0.2, -0.2, 0]])
-    X3 = np.array([[0.5, -0.5, -0.1], [0, -0.4, 0], [0.5, 0.5, 0.2]])
-    X4 = np.array([[0.2, 1, -0.2], [-1, -0.6, -0.1], [0.1, 0, 0.1]])
+    X1 = np.array([[1, 0.5, 0.2],
+                   [-1, -0.5, -0.2],
+                   [0.1, -0.1, 0]])
+
+    X2 = np.array([[1, -1, 0.1],
+                   [0.5, -0.5, -0.1],
+                   [0.2, -0.2, 0]])
+
+    X3 = np.array([[0.5, -0.5, -0.1],
+                   [0, -0.4, 0],
+                   [0.5, 0.5, 0.2]])
+
+    X4 = np.array([[0.2, 1, -0.2],
+                   [-1, -0.6, -0.1],
+                   [0.1, 0, 0.1]])
 
     for output in batch_normalization([X1, X2, X3, X4], 0, 1, 0.1):
         print(str(output) + '\n')
 
     # Task6 The following arrays show the feature maps that provide the input
     # to a convolutional layer of a CNN
-    # X1 =   [ 0.2,  1. ,  0. ]
-    #        [-1. ,  0. , -0.1]
-    #        [ 0.1,  0. ,  0.1]
-    #
-    # X2 =   [ 1. ,  0.5,  0.2]
-    #        [-1. , -0.5, -0.2]
-    #        [ 0.1, -0.1,  0. ]
-    #
-    # h1 =  [ 1. , -0.1]
-    #       [ 1. , -0.1]
-    #
-    # h2 =   [ 0.5,  0.5]
-    #        [-0.5, -0.5]
-    #
     X1 = [[0.2, 1., 0.],
           [-1., 0., -0.1],
           [0.1, 0., 0.1]]
@@ -225,3 +206,29 @@ if __name__ == '__main__':
 
     print('padding=0 and stride=1 dilation=2')
     print(apply_mask(X, H, padding=0, stride=1, dilation=2))
+
+    # Task7 The following arrays show the feature maps that provide the input
+    # to a convolutional layer of a CNN
+    X1 = [[0.2, 1., 0.],
+          [-1., 0., -0.1],
+          [0.1, 0., 0.1]]
+
+    X2 = [[1., 0.5, 0.2],
+          [-1., -0.5, -0.2],
+          [0.1, -0.1, 0.]]
+
+    X3 = [[0.5, -0.5, -0.1],
+          [0, -0.4, 0],
+          [0.5, 0.5, 0.2]]
+
+    X = np.array([X1, X2, X3])
+
+    # Calculate the output produced by 1x1 convolution when the 3 channels of
+    # the 1x1 mask are [1,-1,0.5]
+    h1 = [[1]]
+    h2 = [[-1]]
+    h3 = [[0.5]]
+
+    H = np.array([h1, h2, h3])
+    print('3 channel 1x1 masks applied to X1 X2 X3:')
+    print(apply_mask(X, H))
