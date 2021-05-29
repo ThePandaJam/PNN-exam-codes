@@ -108,9 +108,9 @@ def apply_mask(X, H, padding=0, stride=1, dilation=1):
     H_rows, H_cols = H[0].shape
     x_rows, x_cols = X[0].shape
 
-    fm_rows, fm_cols = strided_len(x_rows, H_rows, stride), strided_len(x_cols,
-                                                                        H_cols,
-                                                                        stride)
+    fm_rows = strided_len(x_rows, H_rows, stride)
+    fm_cols = strided_len(x_cols, H_cols, stride)
+
     feature_map = np.empty((fm_rows, fm_cols))
     for xf in range(fm_rows):
         for yf in range(fm_cols):
@@ -135,6 +135,9 @@ def pooling(x, pooling_function, region=(2, 2), stride=1):
     return pool
 
 
+# Returns output of the height, width and output size based on input shape,
+# mask shape, number of masks, stride and padding. When defining shape for
+# input or mask specify it as (height,width, n_channels)
 def calc_output_dim(input_shape, mask_shape, n_masks, stride, padding):
     output_h = int(calc_dim(input_shape[0], mask_shape[0], padding, stride))
     output_w = int(calc_dim(input_shape[1], mask_shape[1], padding, stride))
@@ -142,6 +145,8 @@ def calc_output_dim(input_shape, mask_shape, n_masks, stride, padding):
     return output_h, output_w, output_h * output_w * n_masks
 
 
+# Returns output size for specific dimension, like height or width in case of
+# 2D arrays, based on input dimension, mask dimension, padding and stride
 def calc_dim(input_dim, mask_dim, padding, stride):
     return 1 + ((input_dim - mask_dim + 2 * padding) / stride)
 
@@ -157,11 +162,10 @@ if __name__ == '__main__':
     # c. tanh,
     # d. Heaviside function where each neuron has a threshold of 0.1
     # (define H(0) as 0.5).
+    print('Task 4 ------------------------------------------------------------')
     net = np.array([[1, 0.5, 0.2],
                     [-1, -0.5, -0.2],
                     [0.1, -0.1, 0]])
-    print('input:')
-    print(net)
 
     print('relu:')
     print(calc_activation(net, 'relu'))
@@ -182,6 +186,7 @@ if __name__ == '__main__':
     # Calculate the corresponding outputs produced after the application of
     # batch normalisation, assuming the following parameter values β = 0,
     # γ = 1, and ε = 0.1 which are the same for all neurons
+    print('Task 5 ------------------------------------------------------------')
     print('batch normalization')
     X1 = np.array([[1, 0.5, 0.2],
                    [-1, -0.5, -0.2],
@@ -204,6 +209,7 @@ if __name__ == '__main__':
 
     # Task6 The following arrays show the feature maps that provide the input
     # to a convolutional layer of a CNN
+    print('Task 6 ------------------------------------------------------------')
     X1 = [[0.2, 1., 0.],
           [-1., 0., -0.1],
           [0.1, 0., 0.1]]
@@ -236,6 +242,7 @@ if __name__ == '__main__':
 
     # Task7 The following arrays show the feature maps that provide the input
     # to a convolutional layer of a CNN
+    print('Task 7 ------------------------------------------------------------')
     X1 = [[0.2, 1., 0.],
           [-1., 0., -0.1],
           [0.1, 0., 0.1]]
@@ -261,13 +268,13 @@ if __name__ == '__main__':
     print(apply_mask(X, H))
 
     # Task 8  The following array shows the input to a pooling layer of a CNN
+    print('Task 8 ------------------------------------------------------------')
     X1 = [[0.2, 1., 0, 0.4],
           [-1., 0., -0.1, -0.1],
           [0.1, 0., -1, -0.5],
           [0.4, -0.7, -0.5, 1]]
 
     # Calculate the output produced by the pooling when using:
-
     print('average pooling with a pooling region of 2x2 and stride=2')
     print(pooling(np.array([X1]), np.mean, (2, 2), stride=2))
 
@@ -284,12 +291,63 @@ if __name__ == '__main__':
     # a stride of 2 and padding of 0.
     #
     # when defining shape please use template (height,width,n_channels)
+    print('Task 9 ------------------------------------------------------------')
     input_shape = (11, 15, 6)
     mask_shape = (3, 3, 6)
     n_masks = 1
     stride = 2
     padding = 0
     print('calculate output dimension')
+    out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
+                                             stride, padding)
+    print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
+          str(n_masks) + '=' + str(out_size))
+
+    # Task 10 A CNN processes an image of size 200x200x3 using the following
+    # sequence of layers:
+    print('Task 10 -----------------------------------------------------------')
+
+    print('convolution with 40 masks of size 5x5x3 with stride=1, padding=0')
+    input_shape = (200, 200, 3)
+    mask_shape = (5, 5, 3)
+    n_masks = 40
+    stride = 1
+    padding = 0
+    out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
+                                             stride, padding)
+    print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
+          str(n_masks) + '=' + str(out_size))
+
+    print('pooling with 2x2 pooling regions stride=2')
+    input_shape = (out_h, out_w, 3)
+    mask_shape = (2, 2, 3)
+    stride = 2
+
+    out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
+                                             stride, padding)
+    print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
+          str(n_masks) + '=' + str(out_size))
+
+    print('convolution with 80 masks of size 4x4 with stride=2, padding=1')
+    input_shape = (out_h, out_w, 3)
+    mask_shape = (4, 4, 3)
+    n_masks = 80
+    padding = 1
+
+    out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
+                                             stride, padding)
+    print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
+          str(n_masks) + '=' + str(out_size))
+
+    print('1x1 convolution with 20 masks')
+    input_shape = (out_h, out_w, 3)
+    mask_shape = (1, 1, 3)
+    n_masks = 20
+    # this was not clearly stated in description, but from solution looks
+    # like they meant to set padding and stride to default values
+    stride = 1
+    padding = 0
+
     out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
                                              stride, padding)
     print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
