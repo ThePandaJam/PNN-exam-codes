@@ -1,7 +1,7 @@
 # Discriminant Functions [week 2]
 import numpy as np
 
-def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, number_of_classes ):
+def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, number_of_classes, number_of_features ):
   # N is the number of exemplars provided in the question
   # augmented_matrix is the augmented feature vector from the question
   # eta is the learning rate given in the question
@@ -10,7 +10,7 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
   N_counter = 0 # counter to check for convergence
 
   #Step 2. Initialise aj for each class
-  at = np.zeros((number_of_classes, number_of_classes))
+  at = np.zeros((number_of_classes, number_of_features))
 
   for i in range(0,15):
     print ('Iteration: ',i+1)
@@ -22,12 +22,6 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
     print(at)
     
     # Compute g value
-    #print('at is ', at)
-    #print('aug matrix is',augmented_matrix[:,index])
-    # g1 = at[0] @ augmented_matrix[:,index]
-    # g2 = at[1] @ augmented_matrix[:,index]
-    # g3 = at[2] @ augmented_matrix[:,index]
-
     g = np.empty([number_of_classes])
     for i in range(len(g)):
       g[i] = at[i] @ augmented_matrix[:,index]
@@ -93,6 +87,7 @@ if __name__ == "__main__":
     augmented_matrix = np.array([[1,1,1,1,1],[1,2,0,-1,-1],[1,0,2,1,-1]]) # Input matrix from the question
     omega = np.array([1,1,2,2,3]) # Class labels from the question 
     number_of_classes = 3
+    number_of_features = 3
 
     #Call function
-    sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, number_of_classes)
+    sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, number_of_classes, number_of_features)
