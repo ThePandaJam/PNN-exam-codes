@@ -79,7 +79,8 @@ def calc_b_norm(beta, epsilon, gamma, mean, value, variance):
     return beta + gamma * ((value - mean) / np.sqrt(variance + epsilon))
 
 
-# Below code through the good offices of Hankun Wang
+# Below 4 functions for Q6 to Q8 is provided
+# through the good offices of Hankun Wang
 def strided_len(x_len, H_len, stride):
     return np.ceil((x_len - H_len + 1) / stride).astype(int)
 
@@ -132,6 +133,17 @@ def pooling(x, pooling_function, region=(2, 2), stride=1):
             pooling_region = x[:, xi: xi + region[0], yi: yi + region[1]]
             pool[:, xp, yp] = pooling_function(pooling_region)
     return pool
+
+
+def calc_output_dim(input_shape, mask_shape, n_masks, stride, padding):
+    output_h = int(calc_dim(input_shape[0], mask_shape[0], padding, stride))
+    output_w = int(calc_dim(input_shape[1], mask_shape[1], padding, stride))
+
+    return output_h, output_w, output_h * output_w * n_masks
+
+
+def calc_dim(input_dim, mask_dim, padding, stride):
+    return 1 + ((input_dim - mask_dim + 2 * padding) / stride)
 
 
 if __name__ == '__main__':
@@ -264,3 +276,21 @@ if __name__ == '__main__':
 
     print('max pooling with a pooling region of 3x3 and stride=1')
     print(pooling(np.array([X1]), np.max, (3, 3), stride=1))
+
+    # Task9 The input to a convolutional layer of a CNN consists of 6 feature
+    # maps each of which has a height of 11 and width of 15 (i.e., input is
+    # 11 × 15 × 6). What size will the output produced by a single mask with
+    # 6 channels and a width of 3 and a height of 3 (i.e., 3×3×6) when using
+    # a stride of 2 and padding of 0.
+    #
+    # when defining shape please use template (height,width,n_channels)
+    input_shape = (11, 15, 6)
+    mask_shape = (3, 3, 6)
+    n_masks = 1
+    stride = 2
+    padding = 0
+    print('calculate output dimension')
+    out_h, out_w, out_size = calc_output_dim(input_shape, mask_shape, n_masks,
+                                             stride, padding)
+    print('output shape is: ' + str(out_h) + 'x' + str(out_w) + 'x' +
+          str(n_masks) + '=' + str(out_size))
