@@ -7,7 +7,7 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
   # eta is the learning rate given in the question
   # omega is an array containing all the output classes of the feature vectors
 
-  N_counter = 0 # counter to check for convergence
+  N_counter = 0 # counter which keeps track of cases where winner_class == omega[index]
 
   #Step 2. Initialise aj for each class
   at = np.zeros((number_of_classes, number_of_features))
@@ -15,7 +15,7 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
   for i in range(0,15):
     print ('Iteration: ',i+1)
     # Step 3. Find values of g1, g2 and g3 and then select the arg max of g
-    index = i % 3
+    index = i % 5
 
     #Print updated a^t value
     print('a^t:')
@@ -24,6 +24,10 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
     # Compute g value
     g = np.empty([number_of_classes])
     for i in range(len(g)):
+      print('Calculation of g values..........')
+      print('a^t is:',at[i])
+      print('Index is:', index)
+      print('Aug matrix is:', augmented_matrix[:,index] )
       g[i] = at[i] @ augmented_matrix[:,index]
 
 
@@ -68,8 +72,8 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
       N_counter =0
     else:
       print ('No update is performed!')
-      N_counter +=1
-      if(N_counter == N +2): ## number of samples (N) is incremented to check convergence
+      N_counter +=1 #Increment convergence counter which keeps track of cases where winner_class == omega[index]
+      if(N_counter == N): ## check for convergence
         print('Value of N = ', N)
         print('Value of N_counter = ', N_counter)
         print('Learning has converged, so stopping...')
