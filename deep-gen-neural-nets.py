@@ -19,7 +19,7 @@ import sympy as sy
 training_iterations = 1 # Number of training iterations.
 x_real = [[1,2],[3,4]] # Real samples
 x_fake = [[5,6],[7,8]] # Generated samples
-    # Both x_real and x_fake have to have the same number of 
+    # Both x_real and x_fake must have the same number of 
     # samples for part b to work
 
 theta = [0.1,0.2] # Initial parameters of discriminator
@@ -29,10 +29,14 @@ prob_fake = 0.5 # Probability of generated samples to be selected
     # In Tutorial 7 Q.3 each sample has the same probability,
     # that is why the current value is 0.5 for both
 
-learning_rate = 0.02 # Part b Q.3 says that learning rate is 0.02
+learning_rate = 0.02 # Part b Q.3 says that learning rate is 0.02 but
+                    # it can be changed to the desired value
 
 # DO NOT change this variables
 # ----------------------------
+# Here, symbols are created for each variable so that
+# the discriminator function can be differentiated and
+# evaluated with different values
 n = len(x_real[0]) 
 x = [None] * n
 t = [None] * n
@@ -47,7 +51,7 @@ for i in range(n):
 discriminator_function = 1/(1+ math.e**-(t[0]*x[0] - t[1]*x[1] - 2))
     # The discriminator function can be changed to any function needed.
     # 
-    # Note that the variables have to be expressed as t[i] and x[i] 
+    # Note that the variables MUST be expressed as t[i] and x[i] 
     # where:
     # 't' is a list containig variables for the parameters of Discriminator (Theta)
     # 'x' is a list containig variables for each attribute of each sample
@@ -116,7 +120,7 @@ for iter in range(training_iterations):
     #
 
     print('\n\n*********************')
-    print('***** Tut Q3B ****\n')
+    print('***** PART B ****\n')
 
     alpha_beta = [[0] * n] * m
     for i in range(m):
