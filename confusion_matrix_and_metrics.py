@@ -40,7 +40,7 @@ def basic_metrics(y_true, y_pred, class_names, avg, normalize=False):
     plt.show()
 
 def main():
-    # Both Binary and multi classification works here (Choose average = binary, for binary classification)
+    # Both Binary and multi classification works here (Choose average = binary for binary classification)
     class_names = np.array(["Two","One", "Zero"]) #Name of classes in descending order
     y_true = [1,1,0,1,0,1,1,2] #True value of class labels 
     y_pred = [1,0,1,1,0,1,0,2] #Predicted value of class labels
