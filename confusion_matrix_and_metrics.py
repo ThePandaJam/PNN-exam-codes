@@ -1,10 +1,10 @@
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import confusion_matrix, classification_report, recall_score, precision_score, f1_score
 
 
-def basic_metrics(y_true, y_pred, class_names, normalize=False):
+def basic_metrics(y_true, y_pred, class_names, avg, normalize=False):
     cm = confusion_matrix(y_true, y_pred)
     cm = cm[:,::-1][::-1]
     np.set_printoptions(precision=4)
@@ -34,18 +34,18 @@ def basic_metrics(y_true, y_pred, class_names, normalize=False):
     print(classification_report(y_true, y_pred, target_names=class_names[::-1],digits=4))
     print()
     print("Overall", "\t", "Precision", "\t", "Recall","\t", "F1 Score")
-    print("\t\t","{:.4f}".format(precision_score(y_true,y_pred)),"\t", 
-          "{:.4f}".format(recall_score(y_true,y_pred)), "\t",  "{:.4f}".format(f1_score(y_true,y_pred)))
+    print("\t\t","{:.4f}".format(precision_score(y_true,y_pred,average=avg)),"\t", 
+          "{:.4f}".format(recall_score(y_true,y_pred,average=avg)), "\t",  "{:.4f}".format(f1_score(y_true,y_pred,average=avg)))
     print("Close figure to terminate.")
     plt.show()
 
 def main():
-    # Both Binary and multi classification works here
+    # Both Binary and multi classification works here (Choose average = binary, for binary classification)
     class_names = np.array(["Two","One", "Zero"]) #Name of classes in descending order
     y_true = [1,1,0,1,0,1,1,2] #True value of class labels 
     y_pred = [1,0,1,1,0,1,0,2] #Predicted value of class labels
-    basic_metrics(y_true, y_pred, class_names)
+    average = 'micro' # Choose average parameter for overall metrics (binary, micro, macro, weighted)
+    basic_metrics(y_true, y_pred, class_names,average)
 
 if __name__ == "__main__":
     main()
-    
