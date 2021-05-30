@@ -69,7 +69,9 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
     else:
       print ('No update is performed!')
       N_counter +=1
-      if(N_counter == N +2):
+      if(N_counter == N +2): ## number of samples (N) is incremented to check convergence
+        print('Value of N = ', N)
+        print('Value of N_counter = ', N_counter)
         print('Learning has converged, so stopping...')
         print ('Final values of a^t after update....')
         print('at')
@@ -82,7 +84,7 @@ def sequential_multiclass_perceptron_learning (N, augmented_matrix, eta, omega, 
 
 if __name__ == "__main__":
     #Set input variables for the sequential_multiclass_perceptron_learning function
-    N = 5
+    N = 5 # N refers to the number of exemplars in the input dataset
     eta = 1
     augmented_matrix = np.array([[1,1,1,1,1],[1,2,0,-1,-1],[1,0,2,1,-1]]) # Input matrix from the question
     omega = np.array([1,1,2,2,3]) # Class labels from the question 
