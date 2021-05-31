@@ -141,7 +141,7 @@ class CompetitiveLearning:
                 closest_centroid_index = None
                 for i, centroid in enumerate(self.centroids):
                     dist = np.linalg.norm(sample - centroid)
-                    if not closest_centroid_index or minimum_distance > dist:
+                    if not minimum_distance or minimum_distance > dist:
                         minimum_distance = dist
                         closest_centroid_index = i
                 print(f"Sample x{j+1} {sample} belongs to cluster c{closest_centroid_index+1} {self.centroids[closest_centroid_index]}")
