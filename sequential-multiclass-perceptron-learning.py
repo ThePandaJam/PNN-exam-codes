@@ -90,7 +90,10 @@ if __name__ == "__main__":
     #Set input variables for the sequential_multiclass_perceptron_learning function
     N = 5 # N refers to the number of exemplars in the input dataset
     eta = 1
-    augmented_matrix = np.array([[1,1,1,1,1],[1,2,0,-1,-1],[1,0,2,1,-1]]) # Input matrix from the question
+    input_array = np.array([[ 1,  1,  1,  1],
+                           [ 2,  0, -1, -1],
+                           [ 0,  2,  1, -1]]) # Input matrix from the question
+    augmented_matrix = np.insert(input_array,0,1,axis=1)
     omega = np.array([1,1,2,2,3]) # Class labels from the question 
     number_of_classes = 3
     number_of_features = 3
