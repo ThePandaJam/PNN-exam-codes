@@ -1,2 +1,4 @@
 ### VisualStudioCode ###
 .vscode/*
+.*
+venv/*
