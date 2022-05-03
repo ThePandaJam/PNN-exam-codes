@@ -1,5 +1,6 @@
 # PNN-exam-codes
 This is a repo for code which should help with the Pattern Recognition and Neural Networks exam
+## Disclaimer: This is a croudsourced collection of code solutions. This may contain errors or may not be fully suited to your exam questions. Use with caution
 
 ## Topics
 1. Introduction
